@@ -1,4 +1,4 @@
-package edu.dosw.bootcamp.lab.DOSW_Bootcamp_Laboratorio_02;
+package src.main.java.edu.dosw.bootcamp.lab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
