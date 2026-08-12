@@ -8,11 +8,11 @@
 		<version>4.0.8-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>edu.dosw.bootcamp.lab </groupId>
-	<artifactId>DOSW-Bootcamp-Laboratorio-02 </artifactId>
+	<groupId>edu.dosw.bootcamp.lab</groupId>
+	<artifactId>DOSW-Bootcamp-Laboratorio-02</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
-	<description> - <description/>
+    <description>Bootcamp – Laboratorio 02</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -26,10 +26,13 @@
 		<tag/>
 		<url/>
 	</scm>
-	<properties>
-		<java.version>21</java.version>
-	</properties>
-	<dependencies>
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
+
+    <dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -42,15 +45,21 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-	<repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <repositories>
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>

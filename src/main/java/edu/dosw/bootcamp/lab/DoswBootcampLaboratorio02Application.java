@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DoswBootcampLaboratorio02Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DoswBootcampLaboratorio02Application.class, args);
+
+        SpringApplication.run(DoswBootcampLaboratorio02Application.class, args);
 	}
 
 }
