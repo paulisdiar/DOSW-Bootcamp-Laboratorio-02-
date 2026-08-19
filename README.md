@@ -1,3 +1,62 @@
+# HACKATHON EXPRESS 2026-2
+
+
+# 2 El Sastre a la Medida
+
+---
+
+### Patrón de Diseño
+
+**Categoría:** Creacional
+
+**Patrón Utilizado:** Builder
+
+**Justificación:**
+El problema exige construir un objeto complejo (un traje) pieza por pieza, donde algunas partes son obligatorias (tela, saco, pantalón) y otras son opcionales (chaleco, forro en seda, bordado). El patrón Builder es la elección exacta porque separa el proceso de construcción del producto final, permite incluir selectivamente las piezas opcionales, y garantiza que el objeto solo se crea cuando todas las partes obligatorias están presentes.
+
+(`SuitBuilder.java` → métodos `withItalianWoolFabric()`, `withNationalClothFabric()`, `withDoubleBreastJacket()`, `withSingleBreastJacket()`, `withSlimTrousers()`, `withClassicTrousers()`, `withVest()`, `withSilkLining()`, `withEmbroidery()`, `build()` / `Tailor.java` → método `makeSuit()`)
+
+---
+
+**Cómo lo apliqué — clases y rol de cada una:**
+
+| Rol | Clase | Responsabilidad |
+|---|---|---|
+| **Producto** | `Suit` | Objeto final inmutable que contiene todas las piezas seleccionadas |
+| **Builder** | `SuitBuilder` | Ensambla el traje pieza por pieza mediante métodos fluidos y valida las piezas obligatorias en `build()` |
+| **Director** | `Tailor` | Dirige la construcción leyendo la entrada del usuario y llamando los métodos del builder correspondientes |
+| **Value Object** | `Piece` | Representación inmutable de cada componente del traje (nombre, descripción, precio) |
+| **Punto de entrada** | `TailorShop` | Contiene el método estático `run()` que es llamado desde `Application.java` |
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `Piece.java` | Value object inmutable — nombre, descripción y precio de cada pieza |
+| `Suit.java` | Producto final — precio total calculado con Streams |
+| `SuitBuilder.java` | Builder — API fluida, valida piezas obligatorias |
+| `Tailor.java` | Director — lee la entrada del usuario y dirige el builder |
+| `TailorShop.java` | Punto de entrada — método estático `run()` llamado desde `Application.java` |
+
+---
+
+### Explicación del Código
+
+1. **`Piece`** — clase `final` con tres campos `private final`. Una vez creado el objeto no puede ser modificado, cumpliendo con el requisito de inmutabilidad.
+
+2. **`SuitBuilder`** — declara un campo `Piece` por cada componente del traje. Cada método `with...()` asigna el campo correspondiente y retorna `this` para permitir encadenamiento de métodos. `build()` exige las tres piezas obligatorias lanzando `IllegalStateException` si falta alguna, luego ensambla y retorna el `Suit`.
+
+3. **`Suit`** — almacena la lista de piezas como lista no modificable. `getTotalPrice()` usa Streams para calcular el total sin ningún ciclo. `display()` imprime cada pieza y el total en columnas formateadas.
+
+4. **`Tailor`** — el Director. `makeSuit()` crea un `SuitBuilder`, solicita al usuario cada pieza (las obligatorias siempre se aplican, las opcionales solo si el usuario confirma), llama a `build()` y retorna el `Suit` terminado.
+
+5. **`TailorShop`** — método estático `run()` que conecta todo y es llamado limpiamente desde `Application.main()`.
+
+---
+
+
 # PREGUNTAS INICIALES
 01. ¿Qué ventaja ofrece el polimorfismo en el diseño de clases frente al uso de múltiples condicionales para determinar el comportamiento de un objeto?
 - El polimorfismo permite que cada clase defina su propio comportamiento mediante un método común, evitando condicionales repetitivos y logrando código más flexible, mantenible y abierto a extensión sin modificar lo existente.

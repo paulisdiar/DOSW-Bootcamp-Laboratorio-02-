@@ -1,14 +1,17 @@
 package src.main.java.edu.dosw.bootcamp.lab;
+
+import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
+
 public class Application {
 
     public static void main(String[] args) {
 
-        // Reto 1
+        // Challenge 1
 
         Reto1BoleteriaAstor.ejecutar();
 
-        // Reto 2
+        // Challenge 2
 
-        Reto2SastreMedida.ejecutar();
+        TailorShop.run();
     }
 }
