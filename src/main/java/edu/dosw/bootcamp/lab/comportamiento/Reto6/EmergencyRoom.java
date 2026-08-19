@@ -53,7 +53,7 @@ public class EmergencyRoom {
 
     public void displayReport(List<AttendanceResult> results) {
         System.out.println();
-        results.forEach(System.out.println);
+        results.forEach(System.out::println);
 
         long mildCount = results.stream()
                 .filter(AttendanceResult::isAttended)

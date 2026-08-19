@@ -31,8 +31,7 @@ public class Tailor {
         if (trousers.equals("2")) builder.withClassicTrousers();
         else                      builder.withSlimTrousers();
 
-        System.out.print("  Vest? (y-Yes $90,000 / n-No) -> ");
-        if (scanner.nextLine().trim().equalsIgnoreCase("y")) builder.withVest();
+        builder.withVest();
 
         System.out.print("  Silk lining? (y-Yes $70,000 / n-No) -> ");
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) builder.withSilkLining();

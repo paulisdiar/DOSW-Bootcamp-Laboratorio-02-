@@ -9,19 +9,26 @@ public class Application {
     public static void main(String[] args) {
 
         // Challenge 1
-
-        Reto1BoleteriaAstor.ejecutar();
+        System.out.println("========================================");
+        System.out.println("  Reto 1 - Astor Box Office");
+        System.out.println("========================================\n");
 
         // Challenge 2
-
+        System.out.println("\n========================================");
+        System.out.println("  Reto 2 - Tailor Shop");
+        System.out.println("========================================\n");
         TailorShop.run();
 
         // Challenge 4
-
+        System.out.println("\n========================================");
+        System.out.println("  Reto 4 - Market Scale");
+        System.out.println("========================================\n");
         MarketScale.run();
 
         // Challenge 6
-
+        System.out.println("\n========================================");
+        System.out.println("  Reto 6 - Hospital Emergency");
+        System.out.println("========================================\n");
         HospitalEmergency.run();
     }
 }
