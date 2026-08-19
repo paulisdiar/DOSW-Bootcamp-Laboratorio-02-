@@ -2,6 +2,7 @@ package src.main.java.edu.dosw.bootcamp.lab;
 
 import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
+import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
 
 public class Application {
 
@@ -18,5 +19,9 @@ public class Application {
         // Challenge 4
 
         MarketScale.run();
+
+        // Challenge 6
+
+        HospitalEmergency.run();
     }
 }

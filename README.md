@@ -19,9 +19,11 @@
 **Justificación:**
 El problema exige construir un objeto complejo (un traje) pieza por pieza, donde algunas partes son obligatorias (tela, saco, pantalón) y otras son opcionales (chaleco, forro en seda, bordado). El patrón Builder es la elección exacta porque separa el proceso de construcción del producto final, permite incluir selectivamente las piezas opcionales, y garantiza que el objeto solo se crea cuando todas las partes obligatorias están presentes.
 ---
+
 ![img_1.png](img_1.png)
 
 ---
+
 ![img_3.png](img_3.png)
 
 ---
@@ -55,6 +57,7 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 | `TailorShop.java` | Punto de entrada — método estático `run()` con manejo de excepciones |
 
 ---
+
 ![img_6.png](img_6.png)
 
 ---
@@ -98,10 +101,15 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 **Justificación:**
 El problema requiere convertir valores de peso entre múltiples unidades dinámicamente según lo que el usuario elija en tiempo de ejecución. Cada unidad de peso encapsula su propia lógica y factor de conversión respecto a una base común (kg), permitiendo intercambiar el algoritmo de conversión de origen y destino sin acoplar el código ni usar condicionales anidados.
 ---
+
 ![img_7.png](img_7.png)
+
 ---
+
 ![img_8.png](img_8.png)
+
 ---
+
 ![img_9.png](img_9.png)
 
 ---
@@ -131,9 +139,13 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 | `MarketScale.java` | Punto de entrada — método estático `run()` con captura de excepciones |
 
 ---
+
 ![img_10.png](img_10.png)
+
 ---
+
 ![img_11.png](img_11.png)
+
 ---
 
 ### Explicación del Código
@@ -151,10 +163,100 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 6. **`MarketScale`** — punto de entrada del reto con el método estático `run()`, encargado de instanciar el operador, coordinar el flujo y manejar `ScaleException` con un bloque `try-catch`.
 
 ---
+---
 
+# 5 Reto 5
 
+---
+---
 
-# PREGUNTAS INICIALES
+# 6 Sala de Urgencias (Hospital Emergency)
+
+---
+
+### Patrón de Diseño
+
+**Categoría:** Comportamiento
+
+**Patrón Utilizado:** Chain of Responsibility
+
+**Justificación:**
+El problema modela un flujo de atención médica escalonado donde una solicitud (un paciente con síntoma, gravedad y prioridad) debe pasar a través de una cadena secuencial de profesionales de salud (Enfermero → Médico General → Especialista). Cada profesional evalúa si puede atender al paciente según sus capacidades de nivel y prioridad o si debe remitirlo al siguiente eslabón. Si ningún profesional puede resolver el caso, el final de la cadena lo marca automáticamente como remitido a otra institución.
+---
+![img_12.png](img_12.png)
+
+---
+
+![img_13.png](img_13.png)
+
+---
+
+![img_14.png](img_14.png)
+
+---
+
+![img_15.png](img_15.png)
+
+---
+
+![img_16.png](img_16.png)
+
+---
+
+**Cómo lo apliqué — clases y rol de cada una:**
+
+| Rol | Clase | Responsabilidad |
+|---|---|---|
+| **Manejador Base (Handler)** | `StaffHandler` | Clase abstracta que define el enlace al siguiente manejador (`setNext`) y el método de procesamiento (`handle`) |
+| **Manejador Concreto (Concrete Handler 1)** | `NurseHandler` | Atiende dolencias de nivel Leve con prioridad Baja; en caso contrario pasa al siguiente |
+| **Manejador Concreto (Concrete Handler 2)** | `GeneralDoctorHandler` | Atiende nivel Moderado con prioridad Baja, o deriva con traza al especialista si la prioridad es Media/Alta |
+| **Manejador Concreto (Concrete Handler 3)** | `SpecialistHandler` | Atiende dolencias de nivel Grave o casos moderados escalados; si es Crítico remite fuera de la institución |
+| **Value Object (Paciente)** | `Patient` | Objeto inmutable que almacena el id, síntoma, nivel de gravedad y prioridad del paciente |
+| **Value Object (Resultado)** | `AttendanceResult` | Objeto inmutable con el resultado de la atención, profesional asignado y traza de remisión |
+| **Excepción personalizada** | `EmergencyException` | Maneja validaciones de conteo, gravedad o prioridad inválidas con constantes |
+| **Coordinador / Director** | `EmergencyRoom` | Ensambla la cadena de atención, recibe a los pacientes y genera estadísticas con Streams |
+| **Punto de entrada** | `HospitalEmergency` | Contiene el método estático `run()` con manejo de errores, invocado desde `Application.java` |
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `StaffHandler.java` | Clase abstracta base para la cadena de responsabilidad |
+| `NurseHandler.java` | Manejador concreto para atención de enfermería (Leve / Baja) |
+| `GeneralDoctorHandler.java` | Manejador concreto para medicina general (Moderado) |
+| `SpecialistHandler.java` | Manejador concreto para médico especialista (Grave / Derivados) |
+| `Patient.java` | Value object inmutable que representa los datos de un paciente |
+| `AttendanceResult.java` | Value object inmutable con el resultado final de la atención |
+| `SeverityLevel.java` | Enum con los niveles de gravedad (Leve, Moderado, Grave, Crítico) |
+| `Priority.java` | Enum con las prioridades de triaje (Baja, Media, Alta) |
+| `EmergencyException.java` | Excepción personalizada con constantes para validaciones |
+| `EmergencyRoom.java` | Coordinador de triaje, construcción de la cadena y estadísticas con Streams |
+| `HospitalEmergency.java` | Punto de entrada — método estático `run()` con captura de excepciones |
+
+---
+
+### Explicación del Código
+
+1. **`StaffHandler`** — clase abstracta que implementa la estructura del patrón Chain of Responsibility mediante `setNext()` para encadenar los profesionales y `passToNext()` para transferir la solicitud al siguiente si el actual no puede atenderla.
+
+2. **`NurseHandler`, `GeneralDoctorHandler` y `SpecialistHandler`** — manejadores concretos donde cada uno evalúa la severidad y prioridad del `Patient`. El enfermero atiende casos leves, el médico general atiende o remite moderados, y el especialista resuelve casos graves o moderados escalados.
+
+3. **`Patient` y `AttendanceResult`** — clases `final` inmutables. `Patient` almacena los datos de ingreso y `AttendanceResult` encapsula el estado final, la traza de remisión y el profesional que atendió.
+
+4. **`SeverityLevel` y `Priority`** — enums que tipifican los niveles de dolencia y la prioridad de atención, con métodos de parseo que lanzan `EmergencyException` ante entradas no reconocidas.
+
+5. **`EmergencyException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_COUNT`, `INVALID_SEVERITY`, `INVALID_PRIORITY`) para centralizar los mensajes de error.
+
+6. **`EmergencyRoom`** — construye la cadena en `buildChain()` vinculando `NurseHandler` → `GeneralDoctorHandler` → `SpecialistHandler`. En `displayReport()` utiliza Streams (`filter`, `count`, `mapToInt`, `average`) para contabilizar pacientes atendidos por nivel, remitidos y el promedio de prioridad.
+
+7. **`HospitalEmergency`** — punto de entrada que orquesta la ejecución completa en su método estático `run()` dentro de un bloque `try-catch` para capturar `EmergencyException`.
+
+---
+ 
+ 
+ # PREGUNTAS INICIALES
 01. ¿Qué ventaja ofrece el polimorfismo en el diseño de clases frente al uso de múltiples condicionales para determinar el comportamiento de un objeto?
 - El polimorfismo permite que cada clase defina su propio comportamiento mediante un método común, evitando condicionales repetitivos y logrando código más flexible, mantenible y abierto a extensión sin modificar lo existente.
 
