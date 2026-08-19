@@ -21,3 +21,5 @@ public final class Piece {
         return String.format("%-12s %-14s $%,d", name + ":", description, price);
     }
 }
+
+

@@ -5,9 +5,13 @@ import java.util.Scanner;
 public class TailorShop {
 
     public static void run() {
-        Scanner scanner = new Scanner(System.in);
-        Tailor tailor = new Tailor(scanner);
-        Suit suit = tailor.makeSuit();
-        suit.display();
+        try {
+            Scanner scanner = new Scanner(System.in);
+            Tailor tailor = new Tailor(scanner);
+            Suit suit = tailor.makeSuit();
+            suit.display();
+        } catch (SuitException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }

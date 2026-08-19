@@ -14,7 +14,15 @@
 **Justificación:**
 El problema exige construir un objeto complejo (un traje) pieza por pieza, donde algunas partes son obligatorias (tela, saco, pantalón) y otras son opcionales (chaleco, forro en seda, bordado). El patrón Builder es la elección exacta porque separa el proceso de construcción del producto final, permite incluir selectivamente las piezas opcionales, y garantiza que el objeto solo se crea cuando todas las partes obligatorias están presentes.
 
-(`SuitBuilder.java` → métodos `withItalianWoolFabric()`, `withNationalClothFabric()`, `withDoubleBreastJacket()`, `withSingleBreastJacket()`, `withSlimTrousers()`, `withClassicTrousers()`, `withVest()`, `withSilkLining()`, `withEmbroidery()`, `build()` / `Tailor.java` → método `makeSuit()`)
+![img_1.png](img_1.png)
+
+---
+![img_3.png](img_3.png)
+
+---
+
+![img_4.png](img_4.png)
+
 
 ---
 
@@ -36,9 +44,17 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 |---|---|
 | `Piece.java` | Value object inmutable — nombre, descripción y precio de cada pieza |
 | `Suit.java` | Producto final — precio total calculado con Streams |
-| `SuitBuilder.java` | Builder — API fluida, valida piezas obligatorias |
+| `SuitBuilder.java` | Builder — valida piezas obligatorias con excepción personalizada |
+| `SuitException.java` | Excepción personalizada con constantes para cada validación |
 | `Tailor.java` | Director — lee la entrada del usuario y dirige el builder |
-| `TailorShop.java` | Punto de entrada — método estático `run()` llamado desde `Application.java` |
+| `TailorShop.java` | Punto de entrada — método estático `run()` con manejo de excepciones |
+
+---
+![img_6.png](img_6.png)
+
+---
+
+![img_5.png](img_5.png)
 
 ---
 
@@ -46,13 +62,15 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 
 1. **`Piece`** — clase `final` con tres campos `private final`. Una vez creado el objeto no puede ser modificado, cumpliendo con el requisito de inmutabilidad.
 
-2. **`SuitBuilder`** — declara un campo `Piece` por cada componente del traje. Cada método `with...()` asigna el campo correspondiente y retorna `this` para permitir encadenamiento de métodos. `build()` exige las tres piezas obligatorias lanzando `IllegalStateException` si falta alguna, luego ensambla y retorna el `Suit`.
+2. **`SuitBuilder`** — declara un campo `Piece` por cada componente del traje. Cada método `with...()` asigna el campo correspondiente. `build()` exige las tres piezas obligatorias lanzando `SuitException` con constantes descriptivas si falta alguna, luego ensambla y retorna el `Suit`.
 
-3. **`Suit`** — almacena la lista de piezas como lista no modificable. `getTotalPrice()` usa Streams para calcular el total sin ningún ciclo. `display()` imprime cada pieza y el total en columnas formateadas.
+3. **`SuitException`** — excepción personalizada que extiende `Exception`. Define constantes `FABRIC_REQUIRED`, `JACKET_REQUIRED` y `TROUSERS_REQUIRED` para centralizar los mensajes de error.
 
-4. **`Tailor`** — el Director. `makeSuit()` crea un `SuitBuilder`, solicita al usuario cada pieza (las obligatorias siempre se aplican, las opcionales solo si el usuario confirma), llama a `build()` y retorna el `Suit` terminado.
+4. **`Suit`** — almacena la lista de piezas como lista no modificable. `getTotalPrice()` usa Streams para calcular el total sin ningún ciclo. `display()` imprime cada pieza y el total en columnas formateadas.
 
-5. **`TailorShop`** — método estático `run()` que conecta todo y es llamado limpiamente desde `Application.main()`.
+5. **`Tailor`** — el Director. `makeSuit()` crea un `SuitBuilder`, solicita al usuario cada pieza (las obligatorias siempre se aplican, las opcionales solo si el usuario confirma), llama a `build()` y retorna el `Suit` terminado.
+
+6. **`TailorShop`** — método estático `run()` que conecta todo, captura `SuitException` y es llamado desde `Application.main()`.
 
 ---
 

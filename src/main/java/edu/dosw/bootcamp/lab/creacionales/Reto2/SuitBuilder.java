@@ -48,10 +48,10 @@ public class SuitBuilder {
         this.embroidery = new Piece("Embroidery", "Initials", 35_000);
     }
 
-    public Suit build() {
-        if (fabric == null)   throw new IllegalStateException("Fabric is required.");
-        if (jacket == null)   throw new IllegalStateException("Jacket is required.");
-        if (trousers == null) throw new IllegalStateException("Trousers are required.");
+    public Suit build() throws SuitException {
+        if (fabric == null)   throw new SuitException(SuitException.FABRIC_REQUIRED);
+        if (jacket == null)   throw new SuitException(SuitException.JACKET_REQUIRED);
+        if (trousers == null) throw new SuitException(SuitException.TROUSERS_REQUIRED);
 
         List<Piece> pieces = new ArrayList<>();
         pieces.add(fabric);

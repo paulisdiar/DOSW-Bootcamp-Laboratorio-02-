@@ -10,7 +10,7 @@ public class Tailor {
         this.scanner = scanner;
     }
 
-    public Suit makeSuit() {
+    public Suit makeSuit() throws SuitException {
         System.out.println("Welcome to the Tailor's Workshop");
         System.out.println("Build your suit:\n");
 
