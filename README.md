@@ -1,7 +1,12 @@
 # HACKATHON EXPRESS 2026-2
 
 
-# 2 El Sastre a la Medida
+# 1 Boletería Astor (Astor Box Office)
+
+---
+---
+
+# 2 El Sastre a la Medida (Tailor Shop)
 
 ---
 
@@ -13,7 +18,7 @@
 
 **Justificación:**
 El problema exige construir un objeto complejo (un traje) pieza por pieza, donde algunas partes son obligatorias (tela, saco, pantalón) y otras son opcionales (chaleco, forro en seda, bordado). El patrón Builder es la elección exacta porque separa el proceso de construcción del producto final, permite incluir selectivamente las piezas opcionales, y garantiza que el objeto solo se crea cuando todas las partes obligatorias están presentes.
-
+---
 ![img_1.png](img_1.png)
 
 ---
@@ -73,6 +78,80 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 6. **`TailorShop`** — método estático `run()` que conecta todo, captura `SuitException` y es llamado desde `Application.main()`.
 
 ---
+---
+
+# 3 Reto 3
+
+---
+---
+
+# 4 La Balanza Honesta del Mercado (Market Scale)
+
+---
+
+### Patrón de Diseño
+
+**Categoría:** Comportamiento
+
+**Patrón Utilizado:** Strategy
+
+**Justificación:**
+El problema requiere convertir valores de peso entre múltiples unidades dinámicamente según lo que el usuario elija en tiempo de ejecución. Cada unidad de peso encapsula su propia lógica y factor de conversión respecto a una base común (kg), permitiendo intercambiar el algoritmo de conversión de origen y destino sin acoplar el código ni usar condicionales anidados.
+---
+![img_7.png](img_7.png)
+---
+![img_8.png](img_8.png)
+---
+![img_9.png](img_9.png)
+
+---
+
+**Cómo lo apliqué — clases y rol de cada una:**
+
+| Rol | Clase | Responsabilidad |
+|---|---|---|
+| **Estrategia (Strategy)** | `WeightUnit` | Enum donde cada constante encapsula su factor y los algoritmos de conversión `toKg()` y `fromKg()` |
+| **Contexto / Conversor** | `WeightConverter` | Ejecuta la estrategia seleccionada convirtiendo de la unidad origen a kg y luego a la unidad destino |
+| **Value Object** | `Weighing` | Objeto inmutable que almacena el resultado detallado de un pesaje (cantidades, unidades y equivalente en kg) |
+| **Excepción personalizada** | `ScaleException` | Excepción con mensajes constantes para entradas y unidades inválidas |
+| **Director / Operador** | `ScaleOperator` | Gestiona la interacción con el usuario, procesa los pesajes y calcula totales con Streams |
+| **Punto de entrada** | `MarketScale` | Contiene el método estático `run()` que maneja las excepciones y es llamado desde `Application.java` |
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `WeightUnit.java` | Enum Strategy — define las unidades soportadas y sus algoritmos de conversión |
+| `Weighing.java` | Value object inmutable — representa el resultado de un pesaje |
+| `WeightConverter.java` | Conversor — aplica las estrategias de conversión entre unidades |
+| `ScaleException.java` | Excepción personalizada con constantes para validaciones |
+| `ScaleOperator.java` | Operador — coordina la entrada/salida y resumen con Streams |
+| `MarketScale.java` | Punto de entrada — método estático `run()` con captura de excepciones |
+
+---
+![img_10.png](img_10.png)
+---
+![img_11.png](img_11.png)
+---
+
+### Explicación del Código
+
+1. **`WeightUnit`** — enum que actúa como la estrategia (`Strategy`). Cada constante (`G`, `LB`, `ARROBA`, `KG`) almacena su factor y define los métodos `toKg()` y `fromKg()` para transformar valores hacia y desde la unidad base.
+
+2. **`Weighing`** — clase `final` inmutable que almacena la cantidad original, la unidad de origen, la cantidad convertida, la unidad destino y el equivalente en kilogramos.
+
+3. **`WeightConverter`** — clase encargada de coordinar la conversión. Valida que el monto sea positivo mediante `ScaleException` y ejecuta la conversión delegando a los métodos de `WeightUnit`.
+
+4. **`ScaleException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_UNIT`, `INVALID_AMOUNT`, `INVALID_COUNT`) para evitar cadenas mágicas y estandarizar los mensajes de error.
+
+5. **`ScaleOperator`** — coordina la interacción por consola con el usuario para leer múltiples pesajes. En `displayResults()` utiliza Streams (`mapToDouble(Weighing::getKgEquivalent).sum()`) para calcular el total acumulado en kg.
+
+6. **`MarketScale`** — punto de entrada del reto con el método estático `run()`, encargado de instanciar el operador, coordinar el flujo y manejar `ScaleException` con un bloque `try-catch`.
+
+---
+
 
 
 # PREGUNTAS INICIALES
