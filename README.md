@@ -1,9 +1,106 @@
 # HACKATHON EXPRESS 2026-2
 
 
-# 1 Boletería Astor (Astor Box Office)
+# 1 La Boletería del Cine Astor
 
 ---
+
+### Principios SOLID Aplicados
+
+**Justificación:**
+
+El Reto 1 requiere manejar diferentes tipos de espectadores, productos de la boletería, una orden de compra y el cálculo de los valores de la factura.
+
+La solución separa estas responsabilidades en diferentes clases. BoleteriaAstor se encarga de la interacción con el usuario, Orden administra los elementos de la compra, Calculadora realiza los cálculos de subtotal, descuento y total, mientras que las clases de espectadores encapsulan el comportamiento asociado al descuento.
+
+La utilización de una clase base Espectador y sus especializaciones permite manejar los diferentes tipos de espectadores mediante polimorfismo, evitando que la lógica de descuentos tenga que estar concentrada en la clase principal.
+
+---
+<img width="440" height="532" alt="image" src="https://github.com/user-attachments/assets/66ee9195-fae2-402d-9ef1-7164e8419a2f" />
+
+---
+
+### Cómo lo apliqué — clases y rol de cada una
+
+| Rol | Clase | Responsabilidad |
+|---|---|---|
+| **Punto de entrada** | `BoleteriaAstor` | Maneja la interacción con el usuario, recibe el tipo de espectador y las cantidades de productos, y presenta la factura. |
+| **Producto** | `Boleta` | Representa una boleta de cine y almacena su nombre, precio y cantidad. |
+| **Producto** | `Confiteria` | Representa un producto de confitería y almacena su información de precio y cantidad. |
+| **Agregador** | `Orden` | Mantiene la colección de elementos que forman parte de la compra. |
+| **Cálculos** | `Calculadora` | Calcula subtotal, descuento y total de la orden. |
+| **Abstracción** | `Espectador` | Define el comportamiento común de los diferentes tipos de espectadores. |
+| **Especialización** | `EspectadorGeneral` | Representa al espectador general y su descuento correspondiente. |
+| **Especialización** | `Estudiante` | Representa al espectador estudiante y su descuento correspondiente. |
+| **Especialización** | `TerceraEdad` | Representa al espectador de tercera edad y su descuento correspondiente. |
+
+---
+
+
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `BoleteriaAstor.java` | Punto de entrada del reto. Gestiona la entrada del usuario y presenta la factura. |
+| `Orden.java` | Administra los elementos que forman parte de la compra. |
+| `ItemOrden.java` | Define la estructura común de los elementos que pueden agregarse a una orden. |
+| `Boleta.java` | Representa una boleta de cine con su nombre, precio y cantidad. |
+| `Confiteria.java` | Representa un producto de confitería con su nombre, precio y cantidad. |
+| `Calculadora.java` | Centraliza los cálculos de subtotal, descuento y total. |
+| `Espectador.java` | Define la información y comportamiento común de un espectador. |
+| `EspectadorGeneral.java` | Implementa el comportamiento del espectador general. |
+| `Estudiante.java` | Implementa el comportamiento del espectador estudiante. |
+| `TerceraEdad.java` | Implementa el comportamiento del espectador de tercera edad. |
+
+---
+
+### Explicación del Código
+
+1. **`ItemOrden`** — define la estructura común de los elementos que pueden formar parte de una orden, permitiendo que `Boleta` y `Confiteria` puedan ser tratados de manera uniforme.
+
+2. **`Boleta`** — representa los diferentes tipos de boleta disponibles. Cada instancia contiene el nombre, precio y cantidad seleccionada.
+
+3. **`Confiteria`** — representa los productos de confitería disponibles, manteniendo su información de precio y cantidad.
+
+4. **`Orden`** — mantiene la lista de elementos agregados a la compra y proporciona las operaciones necesarias para agregar y consultar dichos elementos.
+
+5. **`Espectador`** — establece el comportamiento común para los diferentes tipos de espectadores. Cada especialización proporciona el descuento correspondiente.
+
+6. **`EspectadorGeneral`, `Estudiante` y `TerceraEdad`** — permiten representar los tres tipos de espectadores mediante herencia y polimorfismo. Cada clase proporciona el descuento correspondiente sin que `Calculadora` tenga que conocer los detalles específicos de cada tipo.
+
+7. **`Calculadora`** — concentra las operaciones matemáticas relacionadas con la factura: subtotal, descuento y total. De esta manera, estos cálculos no quedan mezclados con la interacción del usuario.
+
+8. **`BoleteriaAstor`** — funciona como punto de entrada del reto. Recibe el tipo de espectador, las cantidades de cada producto y finalmente muestra la factura.
+
+---
+
+
+
+---
+
+### Evidencia de Ejecución
+
+Se realizaron pruebas con los tres tipos de espectadores disponibles:
+
+- **Espectador General:** 0% de descuento.
+- **Estudiante:** 15% de descuento.
+- **Tercera Edad:** 25% de descuento.
+
+También se verificó que la orden permite seleccionar cantidades de Boleta 2D, Boleta 3D, Crispetas y Gaseosa, y que el subtotal, descuento y total se calculan correctamente.
+
+General sin descuento
+<img width="1365" height="717" alt="image" src="https://github.com/user-attachments/assets/854b0621-2bb2-41b2-830f-f1377cf371fe" />
+
+Estudiante con el 15% descuento
+<img width="1365" height="693" alt="image" src="https://github.com/user-attachments/assets/97b350ae-1b6d-47f3-952d-31712874e028" />
+
+Tercera edad con el 25% descuento
+<img width="1365" height="715" alt="image" src="https://github.com/user-attachments/assets/eb2b6046-1780-430a-8477-c423b5abed2b" />
+
+
 ---
 
 # 2 El Sastre a la Medida (Tailor Shop)
