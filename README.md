@@ -39,9 +39,9 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 |---|---|---|
 | **Producto** | `Suit` | Objeto final inmutable que contiene todas las piezas seleccionadas |
 | **Builder** | `SuitBuilder` | Ensambla el traje pieza por pieza mediante métodos fluidos y valida las piezas obligatorias en `build()` |
-| **Director** | `Tailor` | Dirige la construcción leyendo la entrada del usuario y llamando los métodos del builder correspondientes |
+| **Director** | `Tailor` | Dirige la construcción leyendo la entrada del usuario, valida opciones válidas (`1`/`2` y `s`/`n`) y dirige el builder |
 | **Value Object** | `Piece` | Representación inmutable de cada componente del traje (nombre, descripción, precio) |
-| **Punto de entrada** | `TailorShop` | Contiene el método estático `run()` que es llamado desde `Application.java` |
+| **Punto de entrada** | `TailorShop` | Contiene el método estático `run(Scanner)` y `run()` con manejo de excepciones |
 
 ---
 
@@ -49,12 +49,12 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 
 | Archivo | Descripción |
 |---|---|
-| `Piece.java` | Value object inmutable — nombre, descripción y precio de cada pieza |
-| `Suit.java` | Producto final — precio total calculado con Streams |
-| `SuitBuilder.java` | Builder — valida piezas obligatorias con excepción personalizada |
-| `SuitException.java` | Excepción personalizada con constantes para cada validación |
-| `Tailor.java` | Director — lee la entrada del usuario y dirige el builder |
-| `TailorShop.java` | Punto de entrada — método estático `run()` con manejo de excepciones |
+| `Piece.java` | Value object inmutable — nombre, descripción y precio de cada pieza formateado con concatenación `+` |
+| `Suit.java` | Producto final — precio total calculado con Streams y visualización en consola |
+| `SuitBuilder.java` | Builder — métodos fluidos para ensamblar y validación de piezas obligatorias con excepción personalizada |
+| `SuitException.java` | Excepción personalizada con constantes para cada validación (`FABRIC_REQUIRED`, `JACKET_REQUIRED`, `TROUSERS_REQUIRED`, `INVALID_OPTION`) |
+| `Tailor.java` | Director — lee y valida estrictamente las opciones del usuario (`1`/`2` para obligatorias, `s`/`n` para opcionales: chaleco, forro y bordado) |
+| `TailorShop.java` | Punto de entrada — método estático `run()` / `run(Scanner)` con manejo de excepciones |
 
 ---
 
@@ -72,13 +72,13 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 
 2. **`SuitBuilder`** — declara un campo `Piece` por cada componente del traje. Cada método `with...()` asigna el campo correspondiente. `build()` exige las tres piezas obligatorias lanzando `SuitException` con constantes descriptivas si falta alguna, luego ensambla y retorna el `Suit`.
 
-3. **`SuitException`** — excepción personalizada que extiende `Exception`. Define constantes `FABRIC_REQUIRED`, `JACKET_REQUIRED` y `TROUSERS_REQUIRED` para centralizar los mensajes de error.
+3. **`SuitException`** — excepción personalizada que extiende `Exception`. Define constantes `FABRIC_REQUIRED`, `JACKET_REQUIRED`, `TROUSERS_REQUIRED` e `INVALID_OPTION` en español para centralizar los mensajes de error.
 
-4. **`Suit`** — almacena la lista de piezas como lista no modificable. `getTotalPrice()` usa Streams para calcular el total sin ningún ciclo. `display()` imprime cada pieza y el total en columnas formateadas.
+4. **`Suit`** — almacena la lista de piezas como lista no modificable. `getTotalPrice()` usa Streams para calcular el total sin ningún ciclo. `display()` imprime cada pieza y el total en columnas formateadas mediante concatenación pura (`+`).
 
-5. **`Tailor`** — el Director. `makeSuit()` crea un `SuitBuilder`, solicita al usuario cada pieza (las obligatorias siempre se aplican, las opcionales solo si el usuario confirma), llama a `build()` y retorna el `Suit` terminado.
+5. **`Tailor`** — el Director. `makeSuit()` crea un `SuitBuilder`, solicita al usuario cada pieza (validando que se seleccione `1`/`2` para las obligatorias y `s`/`n` para las opcionales: chaleco, forro de seda y bordado), lanza `SuitException` si la opción es inválida o vacía, llama a `build()` y retorna el `Suit` terminado.
 
-6. **`TailorShop`** — método estático `run()` que conecta todo, captura `SuitException` y es llamado desde `Application.main()`.
+6. **`TailorShop`** — método estático `run()` / `run(Scanner)` que conecta todo, captura `SuitException` y es llamado desde `Application.main()`.
 
 ---
 ---
@@ -121,9 +121,9 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 | **Estrategia (Strategy)** | `WeightUnit` | Enum donde cada constante encapsula su factor y los algoritmos de conversión `toKg()` y `fromKg()` |
 | **Contexto / Conversor** | `WeightConverter` | Ejecuta la estrategia seleccionada convirtiendo de la unidad origen a kg y luego a la unidad destino |
 | **Value Object** | `Weighing` | Objeto inmutable que almacena el resultado detallado de un pesaje (cantidades, unidades y equivalente en kg) |
-| **Excepción personalizada** | `ScaleException` | Excepción con mensajes constantes para entradas y unidades inválidas |
-| **Director / Operador** | `ScaleOperator` | Gestiona la interacción con el usuario, procesa los pesajes y calcula totales con Streams |
-| **Punto de entrada** | `MarketScale` | Contiene el método estático `run()` que maneja las excepciones y es llamado desde `Application.java` |
+| **Excepción personalizada** | `ScaleException` | Excepción con mensajes constantes en español para entradas, conteos y unidades inválidas |
+| **Director / Operador** | `ScaleOperator` | Gestiona la interacción con el usuario, valida cantidades numéricas positivas y calcula totales con Streams |
+| **Punto de entrada** | `MarketScale` | Contiene el método estático `run()` / `run(Scanner)` que maneja las excepciones y es llamado desde `Application.java` |
 
 ---
 
@@ -131,12 +131,12 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 
 | Archivo | Descripción |
 |---|---|
-| `WeightUnit.java` | Enum Strategy — define las unidades soportadas y sus algoritmos de conversión |
-| `Weighing.java` | Value object inmutable — representa el resultado de un pesaje |
+| `WeightUnit.java` | Enum Strategy — define las unidades soportadas (`g`, `lb`, `@`, `kg`) y sus algoritmos de conversión |
+| `Weighing.java` | Value object inmutable — representa el resultado de un pesaje formateado con concatenación `+` |
 | `WeightConverter.java` | Conversor — aplica las estrategias de conversión entre unidades |
-| `ScaleException.java` | Excepción personalizada con constantes para validaciones |
+| `ScaleException.java` | Excepción personalizada con constantes en español para validaciones (`INVALID_COUNT`, `INVALID_AMOUNT`, `INVALID_UNIT`) |
 | `ScaleOperator.java` | Operador — coordina la entrada/salida y resumen con Streams |
-| `MarketScale.java` | Punto de entrada — método estático `run()` con captura de excepciones |
+| `MarketScale.java` | Punto de entrada — método estático `run()` / `run(Scanner)` con captura de excepciones |
 
 ---
 
@@ -156,11 +156,11 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 
 3. **`WeightConverter`** — clase encargada de coordinar la conversión. Valida que el monto sea positivo mediante `ScaleException` y ejecuta la conversión delegando a los métodos de `WeightUnit`.
 
-4. **`ScaleException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_UNIT`, `INVALID_AMOUNT`, `INVALID_COUNT`) para evitar cadenas mágicas y estandarizar los mensajes de error.
+4. **`ScaleException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_UNIT`, `INVALID_AMOUNT`, `INVALID_COUNT`) en español para estandarizar los mensajes de error.
 
-5. **`ScaleOperator`** — coordina la interacción por consola con el usuario para leer múltiples pesajes. En `displayResults()` utiliza Streams (`mapToDouble(Weighing::getKgEquivalent).sum()`) para calcular el total acumulado en kg.
+5. **`ScaleOperator`** — coordina la interacción por consola con el usuario para leer múltiples pesajes. Valida que la cantidad ingresada sea un número válido y mayor a cero. En `displayResults()` utiliza Streams (`mapToDouble(Weighing::getKgEquivalent).sum()`) para calcular el total acumulado en kg.
 
-6. **`MarketScale`** — punto de entrada del reto con el método estático `run()`, encargado de instanciar el operador, coordinar el flujo y manejar `ScaleException` con un bloque `try-catch`.
+6. **`MarketScale`** — punto de entrada del reto con el método estático `run()` / `run(Scanner)`, encargado de instanciar el operador, coordinar el flujo y manejar `ScaleException` con un bloque `try-catch`.
 
 ---
 ---
@@ -181,7 +181,7 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 **Patrón Utilizado:** Chain of Responsibility
 
 **Justificación:**
-El problema modela un flujo de atención médica escalonado donde una solicitud (un paciente con síntoma, gravedad y prioridad) debe pasar a través de una cadena secuencial de profesionales de salud (Enfermero → Médico General → Especialista). Cada profesional evalúa si puede atender al paciente según sus capacidades de nivel y prioridad o si debe remitirlo al siguiente eslabón. Si ningún profesional puede resolver el caso, el final de la cadena lo marca automáticamente como remitido a otra institución.
+El problema modela un flujo de atención médica escalonado donde una solicitud (un paciente con síntoma, gravedad y prioridad) debe pasar a través de una cadena secuencial de profesionales de salud (Enfermero → Médico General → Especialista). Cada profesional evalúa si puede atender al paciente según sus capacidades de nivel y prioridad o si debe remitirlo al siguiente eslabón. Si ningún profesional puede resolver el caso (o es nivel Crítico), el final de la cadena lo marca automáticamente como remitido a otra institución.
 ---
 ![img_12.png](img_12.png)
 
@@ -208,14 +208,14 @@ El problema modela un flujo de atención médica escalonado donde una solicitud 
 | Rol | Clase | Responsabilidad |
 |---|---|---|
 | **Manejador Base (Handler)** | `StaffHandler` | Clase abstracta que define el enlace al siguiente manejador (`setNext`) y el método de procesamiento (`handle`) |
-| **Manejador Concreto (Concrete Handler 1)** | `NurseHandler` | Atiende dolencias de nivel Leve con prioridad Baja; en caso contrario pasa al siguiente |
-| **Manejador Concreto (Concrete Handler 2)** | `GeneralDoctorHandler` | Atiende nivel Moderado con prioridad Baja, o deriva con traza al especialista si la prioridad es Media/Alta |
-| **Manejador Concreto (Concrete Handler 3)** | `SpecialistHandler` | Atiende dolencias de nivel Grave o casos moderados escalados; si es Crítico remite fuera de la institución |
+| **Manejador Concreto (Concrete Handler 1)** | `NurseHandler` | Atiende dolencias de nivel Leve con prioridad Baja (1); en caso contrario pasa al siguiente |
+| **Manejador Concreto (Concrete Handler 2)** | `GeneralDoctorHandler` | Atiende nivel Moderado con prioridad Media (2) o Leve escalado; en caso contrario pasa al siguiente |
+| **Manejador Concreto (Concrete Handler 3)** | `SpecialistHandler` | Atiende dolencias de nivel Grave con prioridad Alta (3) o casos moderados escalados; si es Crítico pasa al final de la cadena |
 | **Value Object (Paciente)** | `Patient` | Objeto inmutable que almacena el id, síntoma, nivel de gravedad y prioridad del paciente |
 | **Value Object (Resultado)** | `AttendanceResult` | Objeto inmutable con el resultado de la atención, profesional asignado y traza de remisión |
-| **Excepción personalizada** | `EmergencyException` | Maneja validaciones de conteo, gravedad o prioridad inválidas con constantes |
-| **Coordinador / Director** | `EmergencyRoom` | Ensambla la cadena de atención, recibe a los pacientes y genera estadísticas con Streams |
-| **Punto de entrada** | `HospitalEmergency` | Contiene el método estático `run()` con manejo de errores, invocado desde `Application.java` |
+| **Excepción personalizada** | `EmergencyException` | Maneja validaciones de conteo, gravedad o prioridad inválidas con constantes en español |
+| **Coordinador / Director** | `EmergencyRoom` | Ensambla la cadena de atención, recibe a los pacientes (mostrando opciones `Leve/Moderado/Grave` y `Baja/Media/Alta`) y genera estadísticas con Streams |
+| **Punto de entrada** | `HospitalEmergency` | Contiene el método estático `run()` / `run(Scanner)` con manejo de errores, invocado desde `Application.java` |
 
 ---
 
@@ -224,16 +224,16 @@ El problema modela un flujo de atención médica escalonado donde una solicitud 
 | Archivo | Descripción |
 |---|---|
 | `StaffHandler.java` | Clase abstracta base para la cadena de responsabilidad |
-| `NurseHandler.java` | Manejador concreto para atención de enfermería (Leve / Baja) |
-| `GeneralDoctorHandler.java` | Manejador concreto para medicina general (Moderado) |
-| `SpecialistHandler.java` | Manejador concreto para médico especialista (Grave / Derivados) |
+| `NurseHandler.java` | Manejador concreto para atención de enfermería (Leve / Prioridad Baja $\le 1$) |
+| `GeneralDoctorHandler.java` | Manejador concreto para medicina general (Moderado / Prioridad Media $\le 2$) |
+| `SpecialistHandler.java` | Manejador concreto para médico especialista (Grave / Prioridad Alta $\le 3$) |
 | `Patient.java` | Value object inmutable que representa los datos de un paciente |
-| `AttendanceResult.java` | Value object inmutable con el resultado final de la atención |
+| `AttendanceResult.java` | Value object inmutable con el resultado final de la atención formateado con `+` |
 | `SeverityLevel.java` | Enum con los niveles de gravedad (Leve, Moderado, Grave, Crítico) |
 | `Priority.java` | Enum con las prioridades de triaje (Baja, Media, Alta) |
-| `EmergencyException.java` | Excepción personalizada con constantes para validaciones |
+| `EmergencyException.java` | Excepción personalizada con constantes en español para validaciones |
 | `EmergencyRoom.java` | Coordinador de triaje, construcción de la cadena y estadísticas con Streams |
-| `HospitalEmergency.java` | Punto de entrada — método estático `run()` con captura de excepciones |
+| `HospitalEmergency.java` | Punto de entrada — método estático `run()` / `run(Scanner)` con captura de excepciones |
 
 ---
 
@@ -241,17 +241,85 @@ El problema modela un flujo de atención médica escalonado donde una solicitud 
 
 1. **`StaffHandler`** — clase abstracta que implementa la estructura del patrón Chain of Responsibility mediante `setNext()` para encadenar los profesionales y `passToNext()` para transferir la solicitud al siguiente si el actual no puede atenderla.
 
-2. **`NurseHandler`, `GeneralDoctorHandler` y `SpecialistHandler`** — manejadores concretos donde cada uno evalúa la severidad y prioridad del `Patient`. El enfermero atiende casos leves, el médico general atiende o remite moderados, y el especialista resuelve casos graves o moderados escalados.
+2. **`NurseHandler`, `GeneralDoctorHandler` y `SpecialistHandler`** — manejadores concretos donde cada uno evalúa la severidad y prioridad del `Patient`. El enfermero atiende casos leves con prioridad baja (1), el médico general atiende moderados con prioridad media (2), y el especialista resuelve casos graves con prioridad alta (3). Los casos críticos o que superan la cadena resultan en remisión a otra institución.
 
-3. **`Patient` y `AttendanceResult`** — clases `final` inmutables. `Patient` almacena los datos de ingreso y `AttendanceResult` encapsula el estado final, la traza de remisión y el profesional que atendió.
+3. **`Patient` y `AttendanceResult`** — clases `final` inmutables. `Patient` almacena los datos de ingreso y `AttendanceResult` encapsula el estado final, la traza de remisión y el profesional que atendió sin usar formateadores complejos, solo concatenación `+`.
 
 4. **`SeverityLevel` y `Priority`** — enums que tipifican los niveles de dolencia y la prioridad de atención, con métodos de parseo que lanzan `EmergencyException` ante entradas no reconocidas.
 
-5. **`EmergencyException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_COUNT`, `INVALID_SEVERITY`, `INVALID_PRIORITY`) para centralizar los mensajes de error.
+5. **`EmergencyException`** — clase de excepción personalizada que define constantes estáticas (`INVALID_COUNT`, `INVALID_SEVERITY`, `INVALID_PRIORITY`) en español para centralizar los mensajes de error.
 
 6. **`EmergencyRoom`** — construye la cadena en `buildChain()` vinculando `NurseHandler` → `GeneralDoctorHandler` → `SpecialistHandler`. En `displayReport()` utiliza Streams (`filter`, `count`, `mapToInt`, `average`) para contabilizar pacientes atendidos por nivel, remitidos y el promedio de prioridad.
 
 7. **`HospitalEmergency`** — punto de entrada que orquesta la ejecución completa en su método estático `run()` dentro de un bloque `try-catch` para capturar `EmergencyException`.
+
+---
+---
+
+# 7 Reto 7
+
+---
+---
+
+# 8 La Academia de Fútbol de los UML (Football Academy)
+
+---
+
+### Patrón de Diseño y Modelado UML
+
+**Categorías:** Creacional / Estructural / Comportamiento
+
+**Patrón Utilizado:** Builder (para atributos dinámicos) y Herencia / Polimorfismo con Encapsulamiento Completo.
+
+**Justificación:**
+El problema modela una academia de fútbol con jugadores de diversas posiciones (`Delantero`, `Defensa`, `Portero`), entrenadores que dirigen y evalúan, e hinchas que interactúan con ellos. Para los atributos dinámicos del jugador (país de origen, posición secundaria, valor de mercado, historial de lesiones) se implementa el patrón **Builder**, permitiendo configurar estos datos de manera fluida y desacoplada sin sobrecargar los constructores de las subclases.
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `Person.java` | Clase abstracta base con atributos encapsulados (`name`, `age`) y sus getters/setters |
+| `Player.java` | Clase abstracta base que hereda de `Person`. Encapsula atributos base, atributos dinámicos, métodos abstractos `patear()`, `entrenar()` y getters/setters |
+| `Defender.java` | Subclase de `Player` — implementa `entrenar()` (entradas y recuperaciones) y `patear()` (despeje) |
+| `Forward.java` | Subclase de `Player` — implementa `entrenar()` (definición y control) y `patear()` (remate) |
+| `Goalkeeper.java` | Subclase de `Player` — implementa `entrenar()`, `patear()` y método propio `atajar()` |
+| `Coach.java` | Subclase de `Person` — representa al entrenador con `specialty` y `assignedPlayers`. Métodos: `dirigir()`, `evaluar()`, `planearSesion()`, `addPlayer()` |
+| `Fan.java` | Subclase de `Person` — representa al hincha con `favoritePlayers` y `jerseys`. Métodos: `animar()`, `pedirAutografo()`, `publicarFoto()` |
+| `PlayerBuilder.java` | Interfaz del patrón Builder para asignación fluida de atributos dinámicos |
+| `PlayerBuilderBase.java` | Clase abstracta base para los builders de jugadores |
+| `DefenderBuilder.java` | Builder concreto para construir instancias de `Defender` |
+| `ForwardBuilder.java` | Builder concreto para construir instancias de `Forward` |
+| `GoalkeeperBuilder.java` | Builder concreto para construir instancias de `Goalkeeper` |
+| `FootballAcademy.java` | Estructura base para el modelado del reto |
+
+---
+
+### Explicación del Código y Relaciones UML
+
+1. **Herencia y Encapsulamiento:**
+   - `Person` es la clase base abstracta de la cual heredan `Player`, `Coach` y `Fan`.
+   - `Player` es una clase abstracta especializada de la cual heredan `Forward`, `Defender` y `Goalkeeper`.
+   - Todos los atributos están declarados como `private` con sus respectivos métodos de acceso (*getters* y *setters*).
+
+2. **Asociaciones:**
+   - **Entrenador $\leftrightarrow$ Jugador:** `Coach` mantiene una lista de agregación de `Player` (`assignedPlayers`) y métodos de interacción (`dirigir(jugador)`, `evaluar(jugador)`, `planearSesion(jugador)`).
+   - **Hincha $\leftrightarrow$ Jugador / Entrenador:** `Fan` mantiene referencias a sus jugadores favoritos (`favoritePlayers`), interactúa con jugadores (`animar(jugador)`, `publicarFoto(jugador)`) y con entrenadores (`pedirAutografo(entrenador)`).
+
+3. **Patrón Builder:**
+   - Permite la creación y personalización de jugadores con atributos opcionales/dinámicos (`withCountryOfOrigin()`, `withSecondaryPosition()`, `withMarketValue()`, `withInjury()`) retornando la instancia construida mediante `build()`.
+
+---
+---
+
+# Aplicación Principal (`Application.java`)
+
+El punto de entrada global de la aplicación ([Application.java](src/main/java/edu/dosw/bootcamp/lab/Application.java)) ofrece un menú interactivo en bucle continuo (`while(true)`):
+- **Retos Pares (2, 4, 6, 8):** Ejecutan el reto seleccionado pasando el `Scanner` compartido.
+- **Retos Impares (1, 3, 5, 7):** Lanzan excepción indicando `"Reto en construcción."`.
+- **Valores fuera de rango o inválidos:** Lanzan excepción indicando `"Lo siento, únicos retos disponibles 1/8."`.
+- **Opción `0`:** Finaliza la ejecución del programa con éxito.
 
 ---
  
