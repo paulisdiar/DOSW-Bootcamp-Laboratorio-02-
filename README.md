@@ -34,11 +34,7 @@ La utilización de una clase base Espectador y sus especializaciones permite man
 | **Especialización** | `Estudiante` | Representa al espectador estudiante y su descuento correspondiente. |
 | **Especialización** | `TerceraEdad` | Representa al espectador de tercera edad y su descuento correspondiente. |
 
----
 
-
-
----
 
 ### Estructura de Clases
 
@@ -75,11 +71,7 @@ La utilización de una clase base Espectador y sus especializaciones permite man
 
 8. **`BoleteriaAstor`** — funciona como punto de entrada del reto. Recibe el tipo de espectador, las cantidades de cada producto y finalmente muestra la factura.
 
----
 
-
-
----
 
 ### Evidencia de Ejecución
 
@@ -180,10 +172,99 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 ---
 ---
 
-# 3 Reto 3
+# 3 La Fábrica de Instrumentos
 
 ---
+
+### Patrón de Diseño
+
+**Categoría:** Creacional
+
+**Patrón Utilizado:** Factory
+
+**Justificación:**
+
+El problema requiere crear diferentes tipos de instrumentos pertenecientes a distintas familias (cuerda, viento y percusión) y cada instrumento puede pertenecer a una gama diferente(estudiante, profesional o vintage).
+
+El patrón Factory permite separar la lógica de creación de los instrumentos de la clase que recibe la información del usuario. De esta manera, `FabricaInstrumentos` no necesita conocer los detalles de cómo se construye cada instrumento, sino que delega su creación a `Fabrica`.
+
+La clase `Fabrica` determina la familia solicitada y delega la creación a la clase correspondiente (`Cuerda`, `Viento` o `Percusion`).
+
 ---
+
+<img width="645" height="504" alt="image" src="https://github.com/user-attachments/assets/e09c0ea2-1049-4ec0-82bf-9950ecfe2b89" />
+
+
+---
+
+### Cómo lo apliqué — clases y rol de cada una
+
+| Rol | Clase | Responsabilidad |
+|---|---|---|
+| **Punto de entrada** | `FabricaInstrumentos` | Recibe los datos del usuario, solicita los instrumentos y muestra los resultados y el total. |
+| **Factory** | `Fabrica` | Determina la familia del instrumento y delega su creación. |
+| **Creador de instrumentos de cuerda** | `Cuerda` | Crea instrumentos pertenecientes a la familia de cuerda y determina su precio base. |
+| **Creador de instrumentos de viento** | `Viento` | Crea instrumentos pertenecientes a la familia de viento y determina su precio base. |
+| **Creador de instrumentos de percusión** | `Percusion` | Crea instrumentos pertenecientes a la familia de percusión y determina su precio base. |
+| **Producto** | `Instrumento` | Representa el instrumento creado y contiene su familia, modelo, gama, afinación y precio. |
+| **Enumeración** | `Gama` | Representa las gamas disponibles: Estudiante, Profesional y Vintage. |
+
+
+---
+
+### Estructura de Clases
+
+| Archivo | Descripción |
+|---|---|
+| `FabricaInstrumentos.java` | Punto de entrada del reto. Gestiona la entrada del usuario, almacena los instrumentos y muestra los resultados. |
+| `Fabrica.java` | Factory encargada de determinar qué clase debe crear el instrumento según su familia. |
+| `Cuerda.java` | Gestiona la creación de instrumentos de cuerda y sus precios base. |
+| `Viento.java` | Gestiona la creación de instrumentos de viento y sus precios base. |
+| `Percusion.java` | Gestiona la creación de instrumentos de percusión y sus precios base. |
+| `Instrumento.java` | Producto que representa un instrumento musical con sus características y precio. |
+| `Gama.java` | Enum que representa las tres gamas disponibles. |
+
+
+---
+
+### Explicación del Código
+
+1. **`Gama`** — representa las tres opciones de gama disponibles para los instrumentos: `ESTUDIANTE`, `PROFESIONAL` y `VINTAGE`.
+
+2. **`Instrumento`** — representa el producto final. Contiene información como el nombre del instrumento, familia, gama, afinación y precio.
+
+3. **`Cuerda`** — se encarga de crear los instrumentos pertenecientes a la familia y establece el precio base correspondiente.
+
+4. **`Viento`** — se encarga de crear los instrumentos pertenecientes a la familia y establece el precio base correspondiente.
+
+5. **`Percusion`** — se encarga de crear los instrumentos pertenecientes a la familia y establece el precio base correspondiente.
+
+6. **`Fabrica`** — funciona como Factory. Recibe la familia, modelo y gama, y delega la creación a `Cuerda`, `Viento` o `Percusion`.
+   
+7. **`FabricaInstrumentos`** — funciona como punto de entrada. Solicita al usuario la cantidad de instrumentos y los datos de cada uno, utiliza la fábrica para crearlos, almacena los resultados y finalmente calcula el total utilizando Streams.
+
+8. **Streams** — el precio total se obtiene mediante un Stream sobre la colección de instrumentos
+
+### Evidencia de Ejecución
+
+Se realizaron pruebas con los tres tipos de familias, modelos y gamas :
+
+Cuerda
+Guitarra Violín Bajo
+Percusión
+Batería Cajón Timbal
+Viento
+Saxofón Flauta Trompeta
+
+Estudiante-Profesional-Vintage
+
+Toca tener presentes las tildes 
+
+<img width="346" height="408" alt="image" src="https://github.com/user-attachments/assets/cde5095d-2d7d-4cf4-b02a-f8a0f11d60df" />
+
+<img width="1355" height="663" alt="image" src="https://github.com/user-attachments/assets/ae0d322c-35e4-4727-b503-6ac3dc630337" />
+<img width="353" height="411" alt="image" src="https://github.com/user-attachments/assets/8a3d83e5-50e0-4a19-8e04-9034570434f0" />
+
 
 # 4 La Balanza Honesta del Mercado (Market Scale)
 
