@@ -13,21 +13,28 @@ public class Fan extends Person {
         this.jerseys = new ArrayList<>();
     }
 
-    public void cheer(Player player) {
-        System.out.println("Let's go " + player.getName() + ", " + getName() + " supports you");
+    public void animar(Player jugador) {
+        System.out.println("¡Vamos " + jugador.getName() + ", " + getName() + " te apoya!");
     }
 
-    public void requestAutograph(Coach coach) {
-        System.out.println("Coach " + coach.getName() + " please give me an autograph");
+    public void pedirAutografo(Coach entrenador) {
+        System.out.println("Entrenador " + entrenador.getName() + ", por favor deme un autógrafo");
     }
 
-    public void postPhoto(Player player) {
-        System.out.println(getName() + " just posted a photo of player " + player.getName());
+    public void publicarFoto(Player jugador) {
+        System.out.println(getName() + " acaba de publicar una foto del jugador " + jugador.getName());
     }
+
+    // Aliases para compatibilidad
+    public void cheer(Player player) { animar(player); }
+    public void requestAutograph(Coach coach) { pedirAutografo(coach); }
+    public void postPhoto(Player player) { publicarFoto(player); }
 
     public List<Player> getFavoritePlayers() { return favoritePlayers; }
+    public void setFavoritePlayers(List<Player> favoritePlayers) { this.favoritePlayers = favoritePlayers; }
     public void addFavoritePlayer(Player player) { favoritePlayers.add(player); }
 
     public List<String> getJerseys() { return jerseys; }
+    public void setJerseys(List<String> jerseys) { this.jerseys = jerseys; }
     public void addJersey(String jersey) { jerseys.add(jersey); }
 }

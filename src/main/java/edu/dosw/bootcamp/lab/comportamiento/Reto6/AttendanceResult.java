@@ -33,8 +33,8 @@ public final class AttendanceResult {
     @Override
     public String toString() {
         if (attended) {
-            return String.format("%s: %s", patient.getId(), handlerTrace);
+            return patient.getId() + ": " + handlerTrace;
         }
-        return String.format("%s: Sin profesional disponible.%n    Paciente remitido a otra institución.", patient.getId());
+        return patient.getId() + ": Sin profesional disponible.\n    Paciente remitido a otra institución.";
     }
 }

@@ -13,39 +13,39 @@ public class SuitBuilder {
     private Piece embroidery;
 
     public void withItalianWoolFabric() {
-        this.fabric = new Piece("Fabric", "Italian wool", 320_000);
+        this.fabric = new Piece("Tela", "Lana ital.", 320_000);
     }
 
     public void withNationalClothFabric() {
-        this.fabric = new Piece("Fabric", "National cloth", 150_000);
+        this.fabric = new Piece("Tela", "Paño nac.", 150_000);
     }
 
     public void withDoubleBreastJacket() {
-        this.jacket = new Piece("Jacket", "Double-breast", 250_000);
+        this.jacket = new Piece("Saco", "Cruzado", 250_000);
     }
 
     public void withSingleBreastJacket() {
-        this.jacket = new Piece("Jacket", "Single-breast", 200_000);
+        this.jacket = new Piece("Saco", "Recto", 200_000);
     }
 
     public void withSlimTrousers() {
-        this.trousers = new Piece("Trousers", "Slim fit", 180_000);
+        this.trousers = new Piece("Pantalón", "Slim", 180_000);
     }
 
     public void withClassicTrousers() {
-        this.trousers = new Piece("Trousers", "Classic fit", 160_000);
+        this.trousers = new Piece("Pantalón", "Clásico", 160_000);
     }
 
     public void withVest() {
-        this.vest = new Piece("Vest", "Classic", 90_000);
+        this.vest = new Piece("Chaleco", "Clásico", 90_000);
     }
 
     public void withSilkLining() {
-        this.lining = new Piece("Lining", "Silk", 70_000);
+        this.lining = new Piece("Forro", "Seda", 70_000);
     }
 
     public void withEmbroidery() {
-        this.embroidery = new Piece("Embroidery", "Initials", 35_000);
+        this.embroidery = new Piece("Bordado", "Iniciales", 35_000);
     }
 
     public Suit build() throws SuitException {

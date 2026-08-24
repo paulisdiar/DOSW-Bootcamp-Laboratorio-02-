@@ -1,10 +1,10 @@
 package src.main.java.edu.dosw.bootcamp.lab.uml.Reto8;
 
 public abstract class Person {
-    String name;
-    Integer age;
+    private String name;
+    private int age;
 
-    public Person(String name, Integer age) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -13,7 +13,15 @@ public abstract class Person {
         return name;
     }
 
-    public Integer getAge() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

@@ -25,13 +25,12 @@ public final class Weighing {
 
     @Override
     public String toString() {
-        return String.format("%s %s = %.3f %s",
-                formatNumber(originalAmount), source.getCode(),
-                convertedAmount, target.getCode());
+        return formatNumber(originalAmount) + " " + source.getCode() + " = " + formatNumber(convertedAmount) + " " + target.getCode();
     }
 
     private String formatNumber(double value) {
         if (value == (long) value) return String.valueOf((long) value);
-        return String.format("%.3f", value);
+        double rounded = Math.round(value * 1000.0) / 1000.0;
+        return String.valueOf(rounded);
     }
 }

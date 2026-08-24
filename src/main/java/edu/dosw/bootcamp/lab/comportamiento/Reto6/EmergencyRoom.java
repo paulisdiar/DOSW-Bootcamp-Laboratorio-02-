@@ -2,6 +2,7 @@ package src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class EmergencyRoom {
@@ -26,7 +27,18 @@ public class EmergencyRoom {
     public List<AttendanceResult> processTriage() throws EmergencyException {
         System.out.println("Hospital San Rafael - Sala de Urgencias");
         System.out.print("Ingrese cantidad de pacientes: ");
-        int count = Integer.parseInt(scanner.nextLine().trim());
+        String line = scanner.nextLine().trim();
+
+        int count;
+        try {
+            if (line.matches(".*\\d+.*")) {
+                count = Integer.parseInt(line.replaceAll("[^0-9]", ""));
+            } else {
+                count = Integer.parseInt(line);
+            }
+        } catch (NumberFormatException e) {
+            throw new EmergencyException(EmergencyException.INVALID_COUNT);
+        }
 
         if (count <= 0) throw new EmergencyException(EmergencyException.INVALID_COUNT);
 
@@ -34,11 +46,11 @@ public class EmergencyRoom {
 
         for (int i = 1; i <= count; i++) {
 
-            System.out.printf("%nPaciente %d:%n", i);
+            System.out.println("\nP" + i + ":");
             System.out.print("  Síntoma: ");
             String symptom = scanner.nextLine().trim();
 
-            System.out.print("  Nivel (Leve/Moderado/Grave/Crítico): ");
+            System.out.print("  Nivel (Leve/Moderado/Grave): ");
             SeverityLevel level = SeverityLevel.fromString(scanner.nextLine().trim());
 
             System.out.print("  Prioridad (Baja/Media/Alta): ");
@@ -53,7 +65,9 @@ public class EmergencyRoom {
 
     public void displayReport(List<AttendanceResult> results) {
         System.out.println();
-        results.forEach(System.out::println);
+        for (AttendanceResult r : results) {
+            System.out.println(r);
+        }
 
         long mildCount = results.stream()
                 .filter(AttendanceResult::isAttended)
@@ -81,8 +95,8 @@ public class EmergencyRoom {
                 .orElse(0.0);
 
         System.out.println("\n--- Estadísticas ---");
-        System.out.printf("Atendidos - Leve: %d  Moder: %d  Grave: %d%n", mildCount, moderateCount, severeCount);
-        System.out.printf("Remitidos a otra institución: %d%n", transferredCount);
-        System.out.printf("Promedio prioridad atendidos: %.1f%n", avgPriority);
+        System.out.println("Atendidos - Leve: " + mildCount + "  Moderado: " + moderateCount + "  Grave: " + severeCount);
+        System.out.println("Remitidos a otra institución: " + transferredCount);
+        System.out.println("Promedio prioridad atendidos: " + avgPriority);
     }
 }

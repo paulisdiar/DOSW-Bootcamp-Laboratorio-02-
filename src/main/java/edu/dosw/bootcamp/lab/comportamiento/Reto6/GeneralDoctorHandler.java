@@ -4,11 +4,9 @@ public class GeneralDoctorHandler extends StaffHandler {
 
     @Override
     public AttendanceResult handle(Patient patient, String trace) {
-        if (patient.getSeverity() == SeverityLevel.MODERATE) {
-            if (patient.getPriority() == Priority.LOW) {
-                return new AttendanceResult(patient, "Médico General atendió.", true, SeverityLevel.MODERATE);
-            }
-            return passToNext(patient, "Médico General -> ");
+        if ((patient.getSeverity() == SeverityLevel.MILD || patient.getSeverity() == SeverityLevel.MODERATE)
+                && patient.getPriority().getValue() <= Priority.MEDIUM.getValue()) {
+            return new AttendanceResult(patient, "Médico General atendió.", true, patient.getSeverity());
         }
         return passToNext(patient, trace);
     }
