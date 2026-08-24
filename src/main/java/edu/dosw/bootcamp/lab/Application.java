@@ -2,6 +2,8 @@ package edu.dosw.bootcamp.lab;
 
 
 import java.util.Scanner;
+
+import edu.dosw.bootcamp.lab.creacionales.Reto3.FabricaInstrumentos;
 import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
@@ -44,11 +46,18 @@ public class Application {
                         System.out.println("  Reto 1 - BoleteriaAstor");
                         System.out.println("========================================\n");
                         BoleteriaAstor.ejecutar();
+                        break;
                     case 2:
                         System.out.println("\n========================================");
                         System.out.println("  Reto 2 - El Sastre a la Medida");
                         System.out.println("========================================\n");
                         TailorShop.run(scanner);
+                        break;
+                    case 3:
+                        System.out.println("\n========================================");
+                        System.out.println("  Reto 2 - El Sastre a la Medida");
+                        System.out.println("========================================\n");
+                        FabricaInstrumentos.ejecutar();
                         break;
                     case 4:
                         System.out.println("\n========================================");
@@ -56,11 +65,23 @@ public class Application {
                         System.out.println("========================================\n");
                         MarketScale.run(scanner);
                         break;
+                    case 5:
+                        System.out.println("\n========================================");
+                        System.out.println("  Reto 2 - El Sastre a la Medida");
+                        System.out.println("========================================\n");
+                        TailorShop.run(scanner);
+                        break;
                     case 6:
                         System.out.println("\n========================================");
                         System.out.println("  Reto 6 - Sala de Urgencias del Hospital");
                         System.out.println("========================================\n");
                         HospitalEmergency.run(scanner);
+                        break;
+                    case 7:
+                        System.out.println("\n========================================");
+                        System.out.println("  Reto 2 - El Sastre a la Medida");
+                        System.out.println("========================================\n");
+                        TailorShop.run(scanner);
                         break;
                     case 8:
                         System.out.println("\n========================================");
