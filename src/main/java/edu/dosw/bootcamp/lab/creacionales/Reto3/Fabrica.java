@@ -4,6 +4,9 @@ public class Fabrica {
 
     public static Instrumento crear(String familia, String modelo, Gama gama) {
 
+        familia = familia.trim();
+        modelo = modelo.trim();
+
         switch (familia) {
 
             case "Cuerda":

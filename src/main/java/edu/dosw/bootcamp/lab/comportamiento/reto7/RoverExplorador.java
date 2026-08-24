@@ -66,7 +66,7 @@ public class RoverExplorador {
 
             System.out.println(
                     "Acción deshecha: "
-                            + accion.getDescripcion()
+                            + accion.descripcion()
             );
         }
 

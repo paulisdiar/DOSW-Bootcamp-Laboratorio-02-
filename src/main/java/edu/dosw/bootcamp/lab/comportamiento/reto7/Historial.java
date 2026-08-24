@@ -30,7 +30,7 @@ public class Historial {
             System.out.println(
                     "#" + (i + 1) + " "
                             + estado
-                            + accion.getDescripcion()
+                            + accion.descripcion()
                             + " - "
                             + accion.getOperador()
             );

@@ -33,12 +33,13 @@ public class Accion implements Comando {
         deshecha = true;
     }
 
-    public String getOperador() {
-        return operador;
+    @Override
+    public String descripcion() {
+        return descripcion;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getOperador() {
+        return operador;
     }
 
     public boolean isDeshecha() {

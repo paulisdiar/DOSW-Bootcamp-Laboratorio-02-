@@ -1,5 +1,7 @@
 package edu.dosw.bootcamp.lab.solid.reto1;
+
 import java.util.Scanner;
+
 public class BoleteriaAstor {
 
     public static void ejecutar() {
@@ -24,9 +26,13 @@ public class BoleteriaAstor {
 
         System.out.println("Ingrese su orden:");
 
+        Boleta boleta2D = new Boleta("Boleta 2D", 14000);
         Boleta boleta3D = new Boleta("Boleta 3D", 22000);
         Confiteria crispetas = new Confiteria("Crispetas", 9000);
         Confiteria gaseosa = new Confiteria("Gaseosa", 4500);
+
+        System.out.print("Boleta 2D: ");
+        boleta2D.setCantidad(sc.nextInt());
 
         System.out.print("Boleta 3D: ");
         boleta3D.setCantidad(sc.nextInt());
@@ -38,6 +44,8 @@ public class BoleteriaAstor {
         gaseosa.setCantidad(sc.nextInt());
 
         Orden orden = new Orden();
+
+        orden.agregarItem(boleta2D);
         orden.agregarItem(boleta3D);
         orden.agregarItem(crispetas);
         orden.agregarItem(gaseosa);
@@ -67,9 +75,13 @@ public class BoleteriaAstor {
                 ));
 
         System.out.printf("Subtotal: $%,.0f%n", subtotal);
-        System.out.printf("Descuento (%.0f%%): $%,.0f%n",
-                espectador.getDescuento() * 100, descuento);
+        System.out.printf(
+                "Descuento (%.0f%%): $%,.0f%n",
+                espectador.getDescuento() * 100,
+                descuento
+        );
         System.out.printf("Total a pagar: $%,.0f%n", total);
+
         System.out.println("--------------------------------");
         System.out.println("¡Disfrute la función!");
     }
