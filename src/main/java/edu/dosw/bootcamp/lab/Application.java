@@ -1,5 +1,6 @@
-package src.main.java.edu.dosw.bootcamp.lab;
+package edu.dosw.bootcamp.lab;
 
+import edu.dosw.bootcamp.lab.solid.reto1.BoleteriaAstor;
 import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
@@ -10,8 +11,9 @@ public class Application {
 
         // Challenge 1
         System.out.println("========================================");
-        System.out.println("  Reto 1 - Astor Box Office");
+        System.out.println("  Reto 1 - BoleteriaAstor");
         System.out.println("========================================\n");
+        BoleteriaAstor.ejecutar();
 
         // Challenge 2
         System.out.println("\n========================================");
