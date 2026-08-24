@@ -1,12 +1,11 @@
 package edu.dosw.bootcamp.lab;
 
-import edu.dosw.bootcamp.lab.solid.reto1.BoleteriaAstor;
 
 import java.util.Scanner;
->>>>>>> 26b4391e68318ee80bd2b256d8b4ebd07be8c6e8
 import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
 import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
+import edu.dosw.bootcamp.lab.solid.reto1.BoleteriaAstor;
 
 public class Application {
 
@@ -14,17 +13,9 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         System.out.println("¡Bienvenid@!");
 
-<<<<<<< HEAD
-        // Challenge 1
-        System.out.println("========================================");
-        System.out.println("  Reto 1 - BoleteriaAstor");
-        System.out.println("========================================\n");
-        BoleteriaAstor.ejecutar();
-=======
         while (true) {
             System.out.print("\n¿A qué reto desea ingresar? (1 al 8, o 0 para salir): ");
             String input = scanner.nextLine().trim();
->>>>>>> 26b4391e68318ee80bd2b256d8b4ebd07be8c6e8
 
             try {
                 int reto;
@@ -48,6 +39,11 @@ public class Application {
                 }
 
                 switch (reto) {
+                    case 1:
+                        System.out.println("========================================");
+                        System.out.println("  Reto 1 - BoleteriaAstor");
+                        System.out.println("========================================\n");
+                        BoleteriaAstor.ejecutar();
                     case 2:
                         System.out.println("\n========================================");
                         System.out.println("  Reto 2 - El Sastre a la Medida");
