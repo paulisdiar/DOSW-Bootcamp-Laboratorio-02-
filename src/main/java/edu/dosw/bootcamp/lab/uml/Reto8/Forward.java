@@ -4,16 +4,16 @@ public class Forward extends Player {
 
     public Forward(String name, int age, int jerseyNumber, String dominantFoot,
                    double weight, double height, int physicalCondition, String category) {
-        super(name, age, jerseyNumber, dominantFoot, weight, height, physicalCondition, category);
+        super(name, age, jerseyNumber, dominantFoot, weight, height, physicalCondition, category, "Delantero");
     }
 
     @Override
-    public void train() {
-        System.out.println(getName() + " trains finishing and ball control");
+    public void entrenar() {
+        System.out.println(getName() + " entrena definición y control del balón");
     }
 
     @Override
-    public void kick() {
-        System.out.println(getName() + " shoots at goal");
+    public void patear() {
+        System.out.println(getName() + " remata a portería");
     }
 }

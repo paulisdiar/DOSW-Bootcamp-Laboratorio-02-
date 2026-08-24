@@ -7,33 +7,50 @@ public class Coach extends Person {
     private String specialty;
     private List<Player> assignedPlayers;
 
-    public Coach(String name, Integer age, String specialty) {
+    public Coach(String name, int age, String specialty) {
         super(name, age);
         this.specialty = specialty;
         this.assignedPlayers = new ArrayList<>();
     }
 
-    public void coach(Player player) {
-        System.out.println("Coaching player " + player.getName() + "...");
+    public void dirigir(Player jugador) {
+        System.out.println("Entrenando al jugador " + jugador.getName() + "...");
     }
 
-    public void evaluate(Player player) {
-        System.out.println("Evaluating player " + player.getName() + "...");
+    public void evaluar(Player jugador) {
+        System.out.println("Evaluando al jugador " + jugador.getName() + "...");
     }
 
-    public void planSession(Player player) {
-        System.out.println("Planning session for player " + player.getName() + "...");
+    public void planearSesion(Player jugador) {
+        System.out.println("Planificando sesión para el jugador " + jugador.getName() + "...");
     }
+
+    // Aliases para compatibilidad
+    public void coach(Player player) { dirigir(player); }
+    public void evaluate(Player player) { evaluar(player); }
+    public void planSession(Player player) { planearSesion(player); }
 
     public void addPlayer(Player player) {
         assignedPlayers.add(player);
+    }
+
+    public void removePlayer(Player player) {
+        assignedPlayers.remove(player);
     }
 
     public String getSpecialty() {
         return specialty;
     }
 
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
     public List<Player> getAssignedPlayers() {
         return assignedPlayers;
+    }
+
+    public void setAssignedPlayers(List<Player> assignedPlayers) {
+        this.assignedPlayers = assignedPlayers;
     }
 }
