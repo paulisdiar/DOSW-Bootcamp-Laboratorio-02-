@@ -1,4 +1,4 @@
-package edu.dosw.bootcamp.lab;
+package src.main.java.edu.dosw.bootcamp.lab;
 
 import java.util.Scanner;
 

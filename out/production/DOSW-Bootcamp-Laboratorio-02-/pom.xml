@@ -8,11 +8,11 @@
 		<version>4.0.8-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>edu.dosw.bootcamp.lab </groupId>
-	<artifactId>DOSW-Bootcamp-Laboratorio-02 </artifactId>
+	<groupId>edu.dosw.bootcamp.lab</groupId>
+	<artifactId>DOSW-Bootcamp-Laboratorio-02</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
-	<description> Configuración de Maven  <description/>
+	<description>Configuración de Maven</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -48,7 +48,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
 	</build>
 	<repositories>
 		<repository>
