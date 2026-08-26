@@ -109,15 +109,15 @@ Tercera edad con el 25% descuento
 El problema exige construir un objeto complejo (un traje) pieza por pieza, donde algunas partes son obligatorias (tela, saco, pantalón) y otras son opcionales (chaleco, forro en seda, bordado). El patrón Builder es la elección exacta porque separa el proceso de construcción del producto final, permite incluir selectivamente las piezas opcionales, y garantiza que el objeto solo se crea cuando todas las partes obligatorias están presentes.
 ---
 
-![img_1.png](img_1.png)
+![img_17.png](docs/imagenes/img_17.png)
 
 ---
 
-![img_3.png](img_3.png)
+![img_18.png](docs/imagenes/img_18.png)
 
 ---
 
-![img_4.png](img_4.png)
+![img_19.png](docs/imagenes/img_19.png)
 
 
 ---
@@ -147,11 +147,11 @@ El problema exige construir un objeto complejo (un traje) pieza por pieza, donde
 
 ---
 
-![img_6.png](img_6.png)
+![img_6.png](docs/imagenes/img_6.png)
 
 ---
 
-![img_5.png](img_5.png)
+![img_5.png](docs/imagenes/img_5.png)
 
 ---
 
@@ -280,15 +280,12 @@ Toca tener presentes las tildes
 El problema requiere convertir valores de peso entre múltiples unidades dinámicamente según lo que el usuario elija en tiempo de ejecución. Cada unidad de peso encapsula su propia lógica y factor de conversión respecto a una base común (kg), permitiendo intercambiar el algoritmo de conversión de origen y destino sin acoplar el código ni usar condicionales anidados.
 ---
 
-![img_7.png](img_7.png)
+![img_20.png](docs/imagenes/img_20.png)
 
 ---
 
-![img_8.png](img_8.png)
+![img_21.png](docs/imagenes/img_21.png)
 
----
-
-![img_9.png](img_9.png)
 
 ---
 
@@ -318,11 +315,11 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 
 ---
 
-![img_10.png](img_10.png)
+![img_24.png](docs/imagenes/img_24.png)
 
 ---
 
-![img_11.png](img_11.png)
+![img_11.png](docs/imagenes/img_11.png)
 
 ---
 
@@ -361,23 +358,23 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 **Justificación:**
 El problema modela un flujo de atención médica escalonado donde una solicitud (un paciente con síntoma, gravedad y prioridad) debe pasar a través de una cadena secuencial de profesionales de salud (Enfermero → Médico General → Especialista). Cada profesional evalúa si puede atender al paciente según sus capacidades de nivel y prioridad o si debe remitirlo al siguiente eslabón. Si ningún profesional puede resolver el caso (o es nivel Crítico), el final de la cadena lo marca automáticamente como remitido a otra institución.
 ---
-![img_12.png](img_12.png)
+![img_12.png](docs/imagenes/img_12.png)
 
 ---
 
-![img_13.png](img_13.png)
+![img_13.png](docs/imagenes/img_13.png)
 
 ---
 
-![img_14.png](img_14.png)
+![img_14.png](docs/imagenes/img_14.png)
 
 ---
 
-![img_15.png](img_15.png)
+![img_15.png](docs/imagenes/img_15.png)
 
 ---
 
-![img_16.png](img_16.png)
+![img_16.png](docs/imagenes/img_16.png)
 
 ---
 
@@ -494,56 +491,11 @@ El problema modela una academia de fútbol con jugadores de diversas posiciones 
 # Aplicación Principal (`Application.java`)
 
 El punto de entrada global de la aplicación ([Application.java](src/main/java/edu/dosw/bootcamp/lab/Application.java)) ofrece un menú interactivo en bucle continuo (`while(true)`):
-- **Retos Pares (2, 4, 6, 8):** Ejecutan el reto seleccionado pasando el `Scanner` compartido.
-- **Retos Impares (1, 3, 5, 7):** Lanzan excepción indicando `"Reto en construcción."`.
+- **Retos (1, 2, 3, 4, 5, 6, 7):** Ejecutan el reto seleccionado pasando el `Scanner` compartido.
 - **Valores fuera de rango o inválidos:** Lanzan excepción indicando `"Lo siento, únicos retos disponibles 1/8."`.
 - **Opción `0`:** Finaliza la ejecución del programa con éxito.
 
 ---
  
  
- # PREGUNTAS INICIALES
-01. ¿Qué ventaja ofrece el polimorfismo en el diseño de clases frente al uso de múltiples condicionales para determinar el comportamiento de un objeto?
-- El polimorfismo permite que cada clase defina su propio comportamiento mediante un método común, evitando condicionales repetitivos y logrando código más flexible, mantenible y abierto a extensión sin modificar lo existente.
-
-
-02. ¿Por qué una clase inmutable puede mejorar la seguridad en un sistema?
-
-- En una clase inmutable los objetos no pueden modificar su estado después de ser creados. Esto puede mejorar la seguridad porque evita que otros objetos cambien accidentalmente los datos.
-
-03. ¿Qué problema podría aparecer en un sistema si los atributos de las clases se mantienen públicos en lugar de privados con getters y setters controlados?
-- Si los atributos son públicos, cualquier clase externa puede modificarlos directamente sin validación, rompiendo el encapsulamiento y dejando el objeto en estados inconsistentes o inválidos.
-
-04. Según el principio Abierto/Cerrado, ¿cómo deberíamos modificar el sistema si queremos añadir una nueva funcionalidad sin alterar el código existente?
-
-- Una clase debe estar abierta para extensión, pero cerrada para modificación. Cuando se necesita agregar una nueva funcionalidad se usa herencia, interfaces o composición sin modificar directamente las clases que ya funcionan.
-
-05. ¿Por qué es importante que una clase cumpla con el Principio de Única Responsabilidad? Da un ejemplo donde se vulnere.
-- El SRP importa porque una clase con una sola responsabilidad es más fácil de mantener, probar y modificar sin afectar funcionalidades no relacionadas.
-
-Ejemplo de violación:
-
-```java
-public class Empleado {
-    public double calcularPago() { ... }
-    public void guardarEnBaseDeDatos() { ... }
-    public void imprimirReciboPDF() { ... }
-}
-```
-
-Se rompe porque mezcla tres razones distintas para cambiar en una sola clase, así que modificar una puede afectar sin querer a las otras.
-
-06. ¿Qué es y para qué usamos el pom.xml?
-
-- El pom.xml es el archivo principal de configuración de un proyecto Maven, se utiliza este archivo para saber cómo compilar, probar y empaquetar la aplicación.
-
-07. ¿Qué diferencia hay entre mvn compile, mvn package y mvn install?
-- mvn compile: compila el código fuente a .class, sin generar artefacto empaquetado.
-- mvn package: compila, corre las pruebas y empaqueta el proyecto en jar o war dentro de target.
-- mvn install: hace todo lo de package y además instala ese artefacto en el repositorio local de Maven para que otros proyectos puedan usarlo.
-
-Son fases acumulativas: compile, luego test, luego package, luego install.
-
-08. ¿Qué diferencia existe entre una interfaz y una clase abstracta?
-
-- Una interfaz define unos comportamientos que las clases deben implementar. Una clase puede implementar varias interfaces, lo que permite que diferentes clases compartan un mismo comportamiento, en cambio, una clase abstracta no puede ser instanciada directamente y puede contener tanto métodos abstractos como métodos con implementación. Una clase solo puede heredar de una clase abstracta.
+ 
