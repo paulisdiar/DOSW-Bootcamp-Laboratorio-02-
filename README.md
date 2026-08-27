@@ -337,12 +337,107 @@ El problema requiere convertir valores de peso entre múltiples unidades dinámi
 
 6. **`MarketScale`** — punto de entrada del reto con el método estático `run()` / `run(Scanner)`, encargado de instanciar el operador, coordinar el flujo y manejar `ScaleException` con un bloque `try-catch`.
 
----
----
-
-# 5 Reto 5
 
 ---
+# 5 La Moto Personalizada
+
+---
+
+### Patrón de Diseño
+
+**Categoría:** Estructural
+
+**Patrón Utilizado:** Decorator 
+
+**Justificación:**
+
+El Reto 5 requiere permitir que una moto pueda ser personalizada agregando diferentes tipos de mejoras, como accesorios, pinturas y complementos. Cada mejora tiene un precio adicional y debe modificar la descripción final de la moto.
+
+La solución utiliza este patrón ya que permite agregar responsabilidades y características a una moto de manera dinámica sin modificar la clase base `Moto`.
+
+La moto comienza con una configuración básica y cada mejora seleccionada se agrega como un decorador sobre la configuración anterior. De esta manera, es posible combinar diferentes accesorios, pinturas y complementos sin tener que crear una clase para cada combinación posible.
+
+
+---
+
+### Cómo lo apliqué — clases y rol de cada una
+
+| Rol                     | Clase               | Responsabilidad                                                                   |
+| --- | --- | --- |
+| **Componente**          | `Mejora`            | Define el comportamiento común de la moto y de las mejoras que pueden agregarse.  |
+| **Componente concreto** | `Moto`              | Representa la moto base sobre la cual se realizan las personalizaciones.          |
+| **Decorador**           | `MotoPersonalizada` | Permite envolver una moto o mejora existente para agregar nuevas características. |
+| **Decorador concreto**  | `Accesorio`         | Representa los accesorios que pueden agregarse a la moto.                         |
+| **Decorador concreto**  | `Pintura`           | Representa las diferentes opciones de pintura disponibles.                        |
+| **Decorador concreto**  | `Complemento`       | Representa los complementos adicionales que pueden instalarse en la moto.         |
+
+---
+
+### Estructura de Clases
+
+| Archivo  | Descripción   |
+| --- | --- |
+| `Mejora.java`            | Define el comportamiento común que deben implementar la moto y las diferentes mejoras. |
+| `Moto.java`              | Representa la moto base con su nombre y precio inicial.                                |
+| `MotoPersonalizada.java` | Implementa el decorador que permite agregar personalizaciones de forma dinámica.       |
+| `Accesorio.java`         | Representa las mejoras correspondientes a accesorios.                                  |
+| `Pintura.java`           | Representa las mejoras correspondientes a pinturas.                                    |
+| `Complemento.java`       | Representa las mejoras correspondientes a complementos.                                |
+
+---
+
+### Explicación del Código
+
+1. **`Mejora`** — define la estructura común para la moto y las diferentes mejoras que pueden agregarse
+
+2. **`Moto`** — representa la moto base del taller. En este ejercicio se utiliza una **Naked 250** con un precio inicial de **$9.800.000**.
+
+3. **`MotoPersonalizada`** — funciona como decorador y permite envolver una moto existente para agregarle nuevas características sin modificar directamente la clase `Moto`.
+
+4. **`Accesorio`** — representa los accesorios disponibles para personalizar la moto:
+
+   * Escape deportivo: **+$1.400.000**
+   * Manillar deportivo: **+$480.000**
+   * Luces LED: **+$350.000**
+   * Alforjas laterales: **+$600.000**
+
+5. **`Pintura`** — representa las diferentes opciones de pintura:
+
+   * Mate negro: **+$900.000**
+   * Metalizado tricapa: **+$1.600.000**
+   * Vinilo personalizado: **+$700.000**
+
+6. **`Complemento`** — representa los complementos disponibles:
+
+   * GPS integrado: **+$1.100.000**
+   * Baúl trasero: **+$550.000**
+   * Sistema de sonido: **+$820.000**
+
+7. **`MotoPersonalizada`**, junto con `Accesorio`, `Pintura` y `Complemento`, permite encadenar diferentes mejoras sobre la moto base. Cada decoración agrega su propio precio y descripción.
+
+8. **`MotoPersonalizada.java`** — contiene la interacción con el usuario. Presenta las diferentes opciones de mejora, recibe las selecciones y construye la moto personalizada.
+
+---
+
+### Evidencia de Ejecución
+
+Se realizaron pruebas seleccionando diferentes combinaciones de mejoras para verificar que el precio y la descripción final de la moto se actualizan correctamente.
+
+**Moto sin mejoras**
+
+<img width="346" height="427" alt="image" src="https://github.com/user-attachments/assets/e9e29638-9eff-4694-93fc-c2b3617ffd7d" />
+
+
+**Moto con escape deportivo, pintura mate negro y baúl trasero**
+
+<img width="460" height="432" alt="image" src="https://github.com/user-attachments/assets/7a176744-34ee-4018-8932-159f9c69c4fa" />
+
+
+**Moto con manillar deportivo, pintura metalizado tricapa y gps integrado**
+
+<img width="558" height="431" alt="image" src="https://github.com/user-attachments/assets/5d305b31-00bf-4a26-a801-aafa831ceaf2" />
+
+
 ---
 
 # 6 Sala de Urgencias (Hospital Emergency)
@@ -428,13 +523,95 @@ El problema modela un flujo de atención médica escalonado donde una solicitud 
 
 7. **`HospitalEmergency`** — punto de entrada que orquesta la ejecución completa en su método estático `run()` dentro de un bloque `try-catch` para capturar `EmergencyException`.
 
----
----
-
-# 7 Reto 7
 
 ---
+# 7 El Rover Explorador de Marte
+
 ---
+
+### Patrón de Diseño
+
+**Categoría:** Comportamiento
+
+**Patrón Utilizado:** Command 
+
+**Justificación:**
+
+El Reto 7 requiere controlar diferentes acciones realizadas por el rover sobre sus módulos, como avanzar o retroceder con el motor, recoger o soltar objetos con el brazo, grabar o detener la cámara y perforar o retraer el taladro y cada acción puede recibir parámetros, debe registrar qué operador la ejecutó, mantenerse en un historial y permitir que una acción individual pueda deshacerse.
+
+El patrón **Command** es adecuado para este problema porque permite encapsular cada acción como un objeto independiente, lo que nos permite hacer el historial
+
+---
+
+### Cómo lo apliqué — clases y rol de cada una
+
+| Rol                  | Clase             | Responsabilidad                                                                                                             |
+| -------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Comando**          | `Comando`         | Define las operaciones que deben implementar los comandos, principalmente ejecutar y deshacer una acción.                   |
+| **Comando concreto** | `Accion`          | Representa una acción realizada sobre un módulo del rover y almacena la información necesaria para ejecutarla y deshacerla. |
+| **Receptor**         | `Motor`           | Ejecuta las acciones de avanzar y retroceder una determinada cantidad de metros.                                            |
+| **Receptor**         | `Brazo`           | Ejecuta las acciones de recoger y soltar objetos.                                                                           |
+| **Receptor**         | `Camara`          | Ejecuta las acciones de grabar y detener la grabación durante un número determinado de segundos.                            |
+| **Receptor**         | `Taladro`         | Ejecuta las acciones de perforar y retraer el taladro según una profundidad determinada.                                    |
+| **Historial**        | `Historial`       | Mantiene el registro completo de las acciones ejecutadas y permite consultar las acciones realizadas.                       |
+| **Invocador**        | `RoverExplorador` | Coordina la ejecución de las acciones, recibe las decisiones del operador y permite ejecutar o deshacer comandos.           |
+
+---
+
+### Estructura de Clases
+
+| Archivo                | Descripción                                                                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `Comando.java`         | Define la interfaz común para los comandos del rover, incluyendo las operaciones de ejecución y deshacer.                   |
+| `Accion.java`          | Representa un comando concreto y contiene la información de la acción, módulo, parámetros y operador.                       |
+| `Motor.java`           | Representa el módulo encargado de avanzar y retroceder el rover.                                                            |
+| `Brazo.java`           | Representa el módulo encargado de recoger y soltar objetos.                                                                 |
+| `Camara.java`          | Representa el módulo encargado de grabar y detener la grabación.                                                            |
+| `Taladro.java`         | Representa el módulo encargado de perforar y retraer el taladro.                                                            |
+| `Historial.java`       | Almacena todas las acciones realizadas y su estado, incluyendo las acciones deshechas.                                      |
+| `RoverExplorador.java` | Punto de entrada del reto. Gestiona la interacción con el usuario, los operadores, la ejecución de acciones y el historial. |
+
+---
+
+### Explicación del Código
+
+1. **`Comando`** — define el contrato que deben cumplir las acciones del rover. Al establecer operaciones como `ejecutar()` y `deshacer()`, permite que diferentes acciones puedan manejarse de manera uniforme.
+
+2. **`Accion`** — representa una acción que será ejecutada sobre alguno de los módulos del rover. La acción contiene la información necesaria para identificar el módulo, la operación realizada, sus parámetros y el operador que la envió.
+
+3. **`Motor`** — representa el módulo encargado del movimiento del rover. Permite realizar acciones como avanzar y retroceder indicando la cantidad de metros.
+
+4. **`Brazo`** — representa el módulo encargado de manipular objetos. Sus operaciones principales son recoger y soltar.
+
+5. **`Camara`** — representa el módulo encargado de realizar grabaciones. Permite iniciar y detener la grabación y recibe como parámetro la duración en segundos.
+
+6. **`Taladro`** — representa el módulo encargado de realizar perforaciones. Permite perforar una determinada profundidad y posteriormente retraer el taladro para deshacer la acción.
+
+7. **`Historial`** — mantiene el registro de todas las acciones realizadas por los operadores. Esto permite conservar información sobre el orden de ejecución, el módulo utilizado, la acción, los parámetros y el operador responsable.
+
+8. **`RoverExplorador`** — funciona como punto de entrada del programa y coordina la interacción con el usuario. Permite seleccionar las acciones, asignarlas a un operador, ejecutarlas y posteriormente deshacer una acción específica del historial.
+
+---
+
+### Evidencia de Ejecución
+
+Se realizaron pruebas con diferentes acciones y operadores para verificar el funcionamiento del patrón Command.
+
+**Ejecución de acciones del operador Camila**
+<img width="370" height="308" alt="image" src="https://github.com/userattachments/assets/0df55e6f-5159-4520-8bbd-74ec138e2cf3" />
+
+
+**Ejecución de acciones del operador Julián**
+
+<img width="353" height="307" alt="image" src="https://github.com/user-attachments/assets/44c7b802-81f0-476e-8da6-3c46b76ee881" />
+
+
+**Deshacer una acción y mostrar el historial**
+<img width="387" height="466" alt="image" src="https://github.com/user-attachments/assets/85f7588d-d960-4795-8db3-7ff8957b5d0c" />
+
+
+---
+
 
 # 8 La Academia de Fútbol de los UML (Football Academy)
 
