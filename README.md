@@ -496,6 +496,16 @@ El punto de entrada global de la aplicación ([Application.java](src/main/java/e
 - **Opción `0`:** Finaliza la ejecución del programa con éxito.
 
 ---
+
+
+![img.png](docs/uml/UML1.png)
  
+----
+
+![img.png](docs/uml/UML2.png)
+
+---
+
+![img.png](docs/uml/UML3.png)
  
  
