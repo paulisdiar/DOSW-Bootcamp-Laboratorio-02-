@@ -599,8 +599,7 @@ Se realizaron pruebas con diferentes acciones y operadores para verificar el fun
 
 **Ejecución de acciones del operador Camila**
 
-
-<img width="370" height="308" alt="image" src="https://github.com/userattachments/assets/0df55e6f-5159-4520-8bbd-74ec138e2cf3" />
+<img width="378" height="414" alt="image" src="https://github.com/user-attachments/assets/22027b65-e363-49c5-8b6c-3a9f68bcf8ba" />
 
 
 **Ejecución de acciones del operador Julián**
