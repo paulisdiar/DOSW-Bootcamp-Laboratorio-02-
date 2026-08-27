@@ -598,6 +598,8 @@ El patrón **Command** es adecuado para este problema porque permite encapsular 
 Se realizaron pruebas con diferentes acciones y operadores para verificar el funcionamiento del patrón Command.
 
 **Ejecución de acciones del operador Camila**
+
+
 <img width="370" height="308" alt="image" src="https://github.com/userattachments/assets/0df55e6f-5159-4520-8bbd-74ec138e2cf3" />
 
 
@@ -607,6 +609,7 @@ Se realizaron pruebas con diferentes acciones y operadores para verificar el fun
 
 
 **Deshacer una acción y mostrar el historial**
+
 <img width="387" height="466" alt="image" src="https://github.com/user-attachments/assets/85f7588d-d960-4795-8db3-7ff8957b5d0c" />
 
 
