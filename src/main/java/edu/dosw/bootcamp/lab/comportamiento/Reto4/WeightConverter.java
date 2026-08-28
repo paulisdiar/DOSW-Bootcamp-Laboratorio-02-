@@ -1,4 +1,4 @@
-package src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4;
+package edu.dosw.bootcamp.lab.comportamiento.Reto4;
 
 public class WeightConverter {
 

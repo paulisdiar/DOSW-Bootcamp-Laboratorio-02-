@@ -1,4 +1,4 @@
-package src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6;
+package edu.dosw.bootcamp.lab.comportamiento.Reto6;
 
 import java.util.List;
 import java.util.Scanner;

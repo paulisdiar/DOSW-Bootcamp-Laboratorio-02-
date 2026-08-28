@@ -1,13 +1,13 @@
-package src.main.java.edu.dosw.bootcamp.lab;
+package edu.dosw.bootcamp.lab;
 
 import java.util.Scanner;
 
 import edu.dosw.bootcamp.lab.comportamiento.reto7.RoverExplorador;
 import edu.dosw.bootcamp.lab.creacionales.Reto3.FabricaInstrumentos;
 import edu.dosw.bootcamp.lab.estructurales.reto5.MotoPersonalizada;
-import src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
-import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
-import src.main.java.edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
+import edu.dosw.bootcamp.lab.creacionales.Reto2.TailorShop;
+import edu.dosw.bootcamp.lab.comportamiento.Reto4.MarketScale;
+import edu.dosw.bootcamp.lab.comportamiento.Reto6.HospitalEmergency;
 import edu.dosw.bootcamp.lab.solid.reto1.BoleteriaAstor;
 
 public class Application {

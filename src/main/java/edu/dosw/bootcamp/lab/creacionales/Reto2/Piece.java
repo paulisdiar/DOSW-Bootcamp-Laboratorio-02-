@@ -1,4 +1,4 @@
-package src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2;
+package edu.dosw.bootcamp.lab.creacionales.Reto2;
 
 public final class Piece {
 

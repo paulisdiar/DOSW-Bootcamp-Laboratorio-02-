@@ -1,4 +1,4 @@
-package src.main.java.edu.dosw.bootcamp.lab.uml.Reto8;
+package edu.dosw.bootcamp.lab.uml.Reto8;
 
 import java.util.List;
 import java.util.ArrayList;

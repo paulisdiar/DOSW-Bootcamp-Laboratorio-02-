@@ -1,4 +1,4 @@
-package src.main.java.edu.dosw.bootcamp.lab.creacionales.Reto2;
+package edu.dosw.bootcamp.lab.creacionales.Reto2;
 
 import java.util.ArrayList;
 import java.util.Collections;
